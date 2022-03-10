@@ -5,12 +5,10 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'login'}">
-              Need an account?
-            </router-link>
+            <router-link :to="{name: 'login'}"> Need an account? </router-link>
           </p>
           VALIDATION ERRORS
-          <form @submit.prevent="onSubmit">
+          <form @submit.prevent="onSignUpButtonClicked">
             <fieldset class="form-group">
               <input
                 class="form-control form-control-lg"
@@ -32,8 +30,10 @@
                 placeholder="Password"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right"
-            :disabled="isSubmitting">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              :disabled="isSubmitting"
+            >
               Sign Up
             </button>
             <!-- {{ count }} -->
@@ -50,14 +50,21 @@ export default {
   name: 'MdmRegisterPage',
   computed: {
     isSubmitting() {
-      return this.$store.state.auth.isSubmitting
-    }
+      return this.$store.state.auth.isSubmitting;
+    },
   },
   methods: {
-     onSubmit() {
-      this.$store.commit('registerStart')
-    }
-    
-  }
-}
+    onSignUpButtonClicked() {
+      this.$store
+        .dispatch('register', {
+          email: 'aleks111.com',
+          username: 'alphastatio',
+          password: 'parola0',
+        })
+        .then((result) => {
+          console.log('result from register action', result);
+        });
+    },
+  },
+};
 </script>
