@@ -34,19 +34,19 @@ const mutations = {
 }
 
 const actions = {
-  register(context, credentials) {
+  [actionTypes.register](context, credentials) {
     return new Promise(resolve => {
-      context.commit('registerStart')
+      context.commit(mutationTypes.registerStart)
       authApi
         .register(credentials)
         .then(response => {
-          context.commit('registerSuccess', response.data.user)
+          context.commit(mutationTypes.registerSuccess, response.data.user)
           // window.localStorage.setItem('accessToken', response.data.user.token)
           setItem('accessToken', response.data.user.token)
           resolve(response.data.user)
         })
         .catch(result => {
-          context.commit('registerFailure', result.response.data.errors)
+          context.commit(mutationTypes.registerFailure, result.response.data.errors)
         })
     })
   }

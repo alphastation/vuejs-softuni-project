@@ -54,6 +54,7 @@
 
 <script>
 import MdmValidationErrors from '@/components/ValidationErrors';
+import {actionTypes} from '@/store/modules/auth';
 export default {
   name: 'MdmRegister',
   components: {
@@ -77,7 +78,7 @@ export default {
   methods: {
     onSignUpButtonClicked() {
       this.$store
-        .dispatch('register', {
+        .dispatch(actionTypes.register, {
           email: this.email,
           username: this.username,
           password: this.password,
