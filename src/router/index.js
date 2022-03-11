@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import RegPage from '@/views/RegisterPage.vue'
+import RegisterView from '@/views/RegisterView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: RegPage
+    component: RegisterView
   }
 ]
 

@@ -7,7 +7,11 @@
           <p class="text-xs-center">
             <router-link :to="{name: 'login'}"> Need an account? </router-link>
           </p>
-          VALIDATION ERRORS
+          <mdm-validation-errors
+            v-if="validationErrors"
+            :validation-errors="validationErrors"
+          ></mdm-validation-errors>
+
           <form @submit.prevent="onSignUpButtonClicked">
             <fieldset class="form-group">
               <input
@@ -49,8 +53,12 @@
 </template>
 
 <script>
+import MdmValidationErrors from '@/components/ValidationErrors';
 export default {
-  name: 'MdmRegisterPage',
+  name: 'MdmRegister',
+  components: {
+    MdmValidationErrors,
+  },
   data() {
     return {
       username: '',
@@ -62,6 +70,9 @@ export default {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting;
     },
+    validationErrors() {
+      return this.$store.state.auth.validationErrors;
+    },
   },
   methods: {
     onSignUpButtonClicked() {
@@ -72,7 +83,7 @@ export default {
           password: this.password,
         })
         .then((result) => {
-          console.log('result from register action', result);
+          console.log('result from register action:', result);
           this.$router.push({name: 'home'});
         });
     },
