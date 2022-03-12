@@ -2,6 +2,7 @@ import authApi from '@/api/auth';
 import { setItem } from '@/helpers/persistanceStorage';
 const state = {
   isSubmitting: false,
+  isLoading: false,
   isLoggedIn: null,
   currentUser: null,
   validationErrors: null
@@ -14,11 +15,16 @@ export const mutationTypes = {
 
   loginStart: '[auth] login start',
   loginSuccess: '[auth] login success',
-  loginFailure: '[auth] login failure'
+  loginFailure: '[auth] login failure',
+
+  getCurrentUserStart: '[auth] Get current user start',
+  getCurrentUserSuccess: '[auth] Get current user success',
+  getCurrentUserFailure: '[auth] Get current user failure',
 }
 export const actionTypes = {
   register: '[auth] register',
-  login: '[auth] login'
+  login: '[auth] login',
+  getCurrentUser: '[auth] Get current user'
 }
 export const getterTypes = {
   currentUser: '[auth] currentUser',
@@ -66,6 +72,21 @@ const mutations = {
   [mutationTypes.loginFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
+  },
+
+
+  [mutationTypes.getCurrentUserStart](state) {
+    state.isLoading = true
+  },
+  [mutationTypes.getCurrentUserSuccess](state, payload) {
+    state.isLoading = false
+    state.isLoggedIn = true
+    state.currentUser = payload
+  },
+  [mutationTypes.getCurrentUserFailure](state) {
+    state.isLoading = false
+    state.isLoggedIn = false
+    state.currentUser = null
   }
 }
 
@@ -102,6 +123,23 @@ const actions = {
         })
     })
   },
+  [actionTypes.getCurrentUser](context) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.getCurrentUserStart)
+      authApi
+        .getCurrentUser()
+        .then(response => {
+          context.commit(mutationTypes.getCurrentUserSuccess, response.data.user)
+          // window.localStorage.setItem('accessToken', response.data.user.token)
+
+          resolve(response.data.user)
+        })
+        .catch(() => {
+          context.commit(mutationTypes.getCurrentUserFailure)
+        })
+    })
+  },
+
 }
 
 export default {
