@@ -90,7 +90,7 @@ export default {
         })
         .then((result) => {
           console.log('result from register action:', result);
-          this.$router.push({name: 'home'});
+          this.$router.push({name: 'globalFeed'});
         });
     },
   },
