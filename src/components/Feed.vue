@@ -3,6 +3,7 @@
   <div>Feed {{ apiUrl }}</div>
 </template>
 <script>
+import {mapState} from 'vuex';
 import {actionTypes} from '@/store/modules/feed';
 export default {
   name: 'MdmFeed',
