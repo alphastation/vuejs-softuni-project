@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import GlbalFeedView from '@/views/GlbalFeedView'
+import GlobalFeedView from '@/views/GlobalFeedView'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'globalFeed',
-    component: GlbalFeedView
+    component: GlobalFeedView
   },
   {
     path: '/register',
