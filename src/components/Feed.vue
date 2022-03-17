@@ -1,6 +1,47 @@
 /* eslint-disable vue/multi-word-component-names */
 <template>
-  <div>Feed {{ apiUrl }}</div>
+  <div>
+    <div v-if="isLoading">Loading...</div>
+    <div v-if="error">Something unwanted had happened</div>
+    <div v-if="feed">
+      <div
+        class="article-preview"
+        v-for="(article, idx) in feed.articles"
+        :key="idx"
+      >
+        <div class="article-meta">
+          <router-link
+            :to="{name: 'userProfile', params: {slug: article.slug}}"
+          >
+            <img :src="article.author.image" />
+          </router-link>
+          <div class="info">
+            <router-link
+              :to="{
+                name: 'userPrifile',
+                params: {slug: article.author.username},
+              }"
+              class="author"
+            >
+              {{ article.author.username }}
+            </router-link>
+            <span class="date">{{ article.createdAt }}</span>
+            <div class="pull-xs-right">ADD TO FAVORITES</div>
+          </div>
+        </div>
+        <router-link
+          :to="{name: 'article', params: {slug: article.author.username}}"
+          class="preview-link"
+        >
+          <h1>{{ article.title }}</h1>
+          <p>{{ article.description }}</p>
+          <span>Read more...</span>
+          TAG LIST
+        </router-link>
+      </div>
+      pagination
+    </div>
+  </div>
 </template>
 <script>
 import {mapState} from 'vuex';
@@ -12,6 +53,13 @@ export default {
       type: String,
       required: true,
     },
+  },
+  computed: {
+    ...mapState({
+      isLoading: (state) => state.feed.isLoading,
+      feed: (state) => state.feed.data,
+      error: (state) => state.feed.error,
+    }),
   },
   mounted() {
     console.log('feed is mounted');

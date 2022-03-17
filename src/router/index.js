@@ -7,11 +7,7 @@ import LoginView from '@/views/LoginView.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'globalFeed',
-    component: GlobalFeedView
-  },
+
   {
     path: '/register',
     name: 'register',
@@ -21,7 +17,52 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
-  }
+  },
+  {
+    path: '/',
+    name: 'globalFeed',
+    component: GlobalFeedView
+  },
+  {
+    path: '/feed',
+    name: 'myFeed',
+    component: GlobalFeedView
+  },
+  {
+    path: '/tags/:slug',
+    name: 'tag',
+    component: GlobalFeedView
+  },
+  {
+    path: '/articles/new',
+    name: 'createArticle',
+    component: GlobalFeedView
+  },
+  {
+    path: '/articles/:slug',
+    name: 'article',
+    component: GlobalFeedView
+  },
+  {
+    path: '/articles/:slug/edit',
+    name: 'editArticle',
+    component: GlobalFeedView
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: GlobalFeedView
+  },
+  {
+    path: '/profiles/:slug',
+    name: 'userProfile',
+    component: GlobalFeedView
+  },
+  {
+    path: '/profiles/:slug/favorites',
+    name: 'userProfileFavorites',
+    component: GlobalFeedView
+  },
 ]
 
 const router = new VueRouter({
