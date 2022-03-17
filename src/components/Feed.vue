@@ -40,12 +40,19 @@
         </router-link>
       </div>
       pagination
+      <mdm-pagination
+        :total="total"
+        :limit="limit"
+        :current-page="currentPage"
+        :url="url"
+      />
     </div>
   </div>
 </template>
 <script>
 import {mapState} from 'vuex';
 import {actionTypes} from '@/store/modules/feed';
+import MdmPagination from '@/components/Pagination';
 export default {
   name: 'MdmFeed',
   props: {
@@ -54,6 +61,18 @@ export default {
       required: true,
     },
   },
+  components: {
+    MdmPagination,
+  },
+  data() {
+    return {
+      total: 500,
+      limit: 10,
+      currentPage: 10,
+      url: '/tags/dragons',
+    };
+  },
+
   computed: {
     ...mapState({
       isLoading: (state) => state.feed.isLoading,
