@@ -1,4 +1,3 @@
-/* eslint-disable vue/multi-word-component-names */
 <template>
   <div>
     <div v-if="isLoading">Loading...</div>
@@ -39,39 +38,43 @@
           TAG LIST
         </router-link>
       </div>
-      pagination
+      pagination:
       <mdm-pagination
-        :total="total"
+        :total="feed.articlesCount"
         :limit="limit"
         :current-page="currentPage"
-        :url="url"
-      />
+        :url="baseUrl"
+      ></mdm-pagination>
     </div>
   </div>
 </template>
 <script>
 import {mapState} from 'vuex';
+import {stringify, parseUrl} from 'query-string';
+
 import {actionTypes} from '@/store/modules/feed';
 import MdmPagination from '@/components/Pagination';
+import {limit} from '@/helpers/projectVariables';
+
 export default {
   name: 'MdmFeed',
+  components: {
+    MdmPagination,
+  },
   props: {
     apiUrl: {
       type: String,
       required: true,
     },
   },
-  components: {
-    MdmPagination,
-  },
-  data() {
-    return {
-      total: 500,
-      limit: 10,
-      currentPage: 10,
-      url: '/tags/dragons',
-    };
-  },
+  // data() {
+  //   return {
+  //     total: 500,
+  //     limit,
+  //     currentPage: 10,
+  //     url: '/tags/dragons',
+  //   };
+  // },
 
   computed: {
     ...mapState({
@@ -79,10 +82,46 @@ export default {
       feed: (state) => state.feed.data,
       error: (state) => state.feed.error,
     }),
+    limit() {
+      return limit;
+    },
+    baseUrl() {
+      // console.log('baseUrl:', this.$route);
+      return this.$route.path;
+    },
+    currentPage() {
+      return Number(this.$route.query.page || '1');
+    },
+    offset() {
+      return Number(this.currentPage * limit - limit);
+    },
+  },
+  watch: {
+    currentPage() {
+      // console.log('Current page just changed!!!');
+      this.fetchFeed();
+    },
   },
   mounted() {
-    console.log('feed is mounted');
-    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl});
+    // console.log('feed is mounted');
+    this.fetchFeed();
+    // this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl});
+  },
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl);
+      // console.log('thisparsedUrl:', parsedUrl);
+      const stringifiedParams = stringify({
+        limit,
+        offset: this.offset,
+        ...parsedUrl.query,
+      });
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+      console.log(apiUrlWithParams);
+      this.$store.dispatch(actionTypes.getFeed, {
+        apiUrl: apiUrlWithParams,
+      });
+    },
   },
 };
 </script>
