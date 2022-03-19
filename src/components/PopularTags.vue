@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
-    <div v-if="error">Something is broken</div>
+    <!-- <div v-if="isLoading">Loading...</div> -->
+    <mdm-loading v-if="isLoading" />
+    <!-- <div v-if="error">Something is broken</div> -->
+    <mdm-error-message v-if="error"></mdm-error-message>
     <div class="sidebar" v-if="popularTags">
       <p>Popular Tags</p>
       <div class="tag-list">
@@ -21,8 +23,14 @@
 <script>
 import {mapState} from 'vuex';
 import {actionTypes} from '@/store/modules/popularTags';
+import MdmLoading from '@/components/Loading';
+import MdmErrorMessage from '@/components/ErrorMessage';
 export default {
   name: 'MdmPopularTags',
+  components: {
+    MdmLoading,
+    MdmErrorMessage,
+  },
   computed: {
     ...mapState({
       isLoading: (state) => state.popularTags.isLoading,

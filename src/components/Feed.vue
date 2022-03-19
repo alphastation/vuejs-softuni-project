@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
-    <div v-if="error">Something unwanted had happened</div>
+    <!-- <div v-if="isLoading">Loading...</div> -->
+    <mdm-loading v-if="isLoading" />
+    <!-- <div v-if="error">Something unwanted had happened</div> -->
+    <mdm-error-message v-if="error"></mdm-error-message>
     <div v-if="feed">
       <div
         class="article-preview"
@@ -54,12 +56,17 @@ import {stringify, parseUrl} from 'query-string';
 
 import {actionTypes} from '@/store/modules/feed';
 import MdmPagination from '@/components/Pagination';
+import MdmLoading from '@/components/Loading';
+import MdmErrorMessage from '@/components/ErrorMessage';
+
 import {limit} from '@/helpers/projectVariables';
 
 export default {
   name: 'MdmFeed',
   components: {
     MdmPagination,
+    MdmLoading,
+    MdmErrorMessage,
   },
   props: {
     apiUrl: {

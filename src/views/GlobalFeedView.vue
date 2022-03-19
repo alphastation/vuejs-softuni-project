@@ -1,6 +1,7 @@
 <template>
   <div class="home-page">
     BANNER Global feed is here!!!
+    <mdm-banner></mdm-banner>
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
@@ -17,11 +18,13 @@
 <script>
 import MdmFeed from '@/components/Feed.vue';
 import MdmPopularTags from '@/components/PopularTags.vue';
+import MdmBanner from '@/components/Banner.vue';
 export default {
   name: 'MdmGlobalFeed',
   components: {
     MdmFeed,
     MdmPopularTags,
+    MdmBanner,
   },
   data() {
     return {
