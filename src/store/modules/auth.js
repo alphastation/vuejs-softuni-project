@@ -9,21 +9,21 @@ const state = {
 
 }
 export const mutationTypes = {
-  registerStart: '[auth] register start',
-  registerSuccess: '[auth] register success',
-  registerFailure: '[auth] register failure',
+  registerStart: '[auth] Register start',
+  registerSuccess: '[auth] Register success',
+  registerFailure: '[auth] Register failure',
 
-  loginStart: '[auth] login start',
-  loginSuccess: '[auth] login success',
-  loginFailure: '[auth] login failure',
+  loginStart: '[auth] Login start',
+  loginSuccess: '[auth] Login success',
+  loginFailure: '[auth] Login failure',
 
   getCurrentUserStart: '[auth] Get current user start',
   getCurrentUserSuccess: '[auth] Get current user success',
   getCurrentUserFailure: '[auth] Get current user failure',
 }
 export const actionTypes = {
-  register: '[auth] register',
-  login: '[auth] login',
+  register: '[auth] Register',
+  login: '[auth] Login',
   getCurrentUser: '[auth] Get current user'
 }
 export const getterTypes = {

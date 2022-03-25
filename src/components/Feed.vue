@@ -7,22 +7,21 @@
     <div v-if="feed">
       <div
         class="article-preview"
-        v-for="(article, idx) in feed.articles"
-        :key="idx"
+        v-for="(article, index) in feed.articles"
+        :key="index"
       >
         <div class="article-meta">
           <router-link
-            :to="{name: 'userProfile', params: {slug: article.slug}}"
+            :to="{name: 'userProfile', params: {slug: article.author.username}}"
           >
             <img :src="article.author.image" />
           </router-link>
           <div class="info">
             <router-link
               :to="{
-                name: 'userPrifile',
+                name: 'userProfile',
                 params: {slug: article.author.username},
               }"
-              class="author"
             >
               {{ article.author.username }}
             </router-link>
@@ -31,7 +30,7 @@
           </div>
         </div>
         <router-link
-          :to="{name: 'article', params: {slug: article.author.username}}"
+          :to="{name: 'article', params: {slug: article.slug}}"
           class="preview-link"
         >
           <h1>{{ article.title }}</h1>
@@ -40,12 +39,12 @@
           TAG LIST
         </router-link>
       </div>
-      pagination:
+
       <mdm-pagination
         :total="feed.articlesCount"
         :limit="limit"
-        :current-page="currentPage"
         :url="baseUrl"
+        :current-page="currentPage"
       ></mdm-pagination>
     </div>
   </div>
@@ -56,10 +55,10 @@ import {stringify, parseUrl} from 'query-string';
 
 import {actionTypes} from '@/store/modules/feed';
 import MdmPagination from '@/components/Pagination';
+import {limit} from '@/helpers/projectVariables';
+
 import MdmLoading from '@/components/Loading';
 import MdmErrorMessage from '@/components/ErrorMessage';
-
-import {limit} from '@/helpers/projectVariables';
 
 export default {
   name: 'MdmFeed',
@@ -100,7 +99,7 @@ export default {
       return Number(this.$route.query.page || '1');
     },
     offset() {
-      return Number(this.currentPage * limit - limit);
+      return this.currentPage * limit - limit;
     },
   },
   watch: {
