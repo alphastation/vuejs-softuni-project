@@ -10,13 +10,18 @@ export const mutationTypes = {
 
     getArticleStart: '[article] Get article start',
     getArticleSuccess: '[article] Get article success',
-    getArticleFailure: '[article] Get article failure'
+    getArticleFailure: '[article] Get article failure',
+
+    deleteArticleStart: '[article] Delete article start',
+    deleteArticleSuccess: '[article] Delete article success',
+    deleteArticleFailure: '[article] Delete article failure'
+
 
 }
 
 export const actionTypes = {
-    getArticle: '[article] Get article'
-
+    getArticle: '[article] Get article',
+    deleteArticle: '[article] Delete article'
 }
 
 const mutations = {
@@ -31,7 +36,10 @@ const mutations = {
     [mutationTypes.getArticleFailure](state) {
 
         state.isLoading = false;
-    }
+    },
+    [mutationTypes.deleteArticleStart]() { },
+    [mutationTypes.deleteArticleSuccess]() { },
+    [mutationTypes.deleteArticleFailure]() { }
 
 }
 const actions = {
@@ -49,6 +57,21 @@ const actions = {
                 })
                 .catch(() => {
                     context.commit(mutationTypes.getArticleFailure);
+                });
+        });
+    },
+    [actionTypes.deleteArticle](context, { slug }) {
+        return new Promise((resolve) => {
+            context.commit(mutationTypes.deleteArticleStart);
+            articleApi
+                .deleteArticle(slug)
+                .then(() => {
+                    context.commit(mutationTypes.deleteArticleSuccess);
+                    // window.localStorage.setItem('accessToken', response.data.user.token)
+                    resolve();
+                })
+                .catch(() => {
+                    context.commit(mutationTypes.deleteArticleFailure);
                 });
         });
     },
