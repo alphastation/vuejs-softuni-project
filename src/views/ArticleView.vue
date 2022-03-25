@@ -44,7 +44,7 @@
           <div>
             <p>{{ article.body }}</p>
           </div>
-          TAG LIST IS HERE
+          <mdm-tag-list :tags="article.tagList"></mdm-tag-list>
         </div>
       </div>
     </div>
@@ -57,12 +57,14 @@ import {actionTypes as articleActionTypes} from '@/store/modules/article';
 import {getterTypes as authGetterTypes} from '@/store/modules/auth';
 import MdmLoading from '@/components/Loading';
 import MdmErrorMessage from '@/components/ErrorMessage';
+import MdmTagList from '@/components/TagList';
 
 export default {
   name: 'MdmArticle',
   components: {
     MdmLoading,
     MdmErrorMessage,
+    MdmTagList,
   },
   computed: {
     ...mapState({

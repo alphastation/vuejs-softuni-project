@@ -36,7 +36,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
-          TAG LIST
+          <mdm-tag-list :tags="article.tagList"></mdm-tag-list>
         </router-link>
       </div>
 
@@ -59,6 +59,7 @@ import {limit} from '@/helpers/projectVariables';
 
 import MdmLoading from '@/components/Loading';
 import MdmErrorMessage from '@/components/ErrorMessage';
+import MdmTagList from '@/components/TagList';
 
 export default {
   name: 'MdmFeed',
@@ -66,6 +67,7 @@ export default {
     MdmPagination,
     MdmLoading,
     MdmErrorMessage,
+    MdmTagList,
   },
   props: {
     apiUrl: {
