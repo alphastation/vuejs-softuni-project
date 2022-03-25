@@ -5,7 +5,7 @@ import GlobalFeedView from '@/views/GlobalFeedView'
 import YourFeedView from '@/views/YourFeedView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
-
+import Article from '@/views/ArticleView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/articles/:slug',
     name: 'article',
-    component: GlobalFeedView
+    component: Article
   },
   {
     path: '/articles/:slug/edit',
