@@ -1,7 +1,5 @@
 <template>
   <div>
-    Create article
-
     <mdm-article-form
       :initialValues="initialValues"
       :errors="validationErrors"
@@ -12,6 +10,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
+import {actionTypes} from '@/store/modules/createArticle';
 import MdmArticleForm from '@/components/ArticleForm.vue';
 export default {
   name: 'MdmCreateArticle',
@@ -26,13 +26,24 @@ export default {
         body: '',
         tagList: [],
       },
-      validationErrors: null,
-      isSubmitting: false,
+      //   validationErrors: null,
+      //   isSubmitting: false,
     };
   },
+  computed: {
+    ...mapState({
+      isSubmitting: (state) => state.createArticle.isSubmitting,
+      validationErrors: (state) => state.createArticle.validationErrors,
+    }),
+  },
   methods: {
-    onSubmit(data) {
-      console.log('onSubmit', data);
+    onSubmit(articleInput) {
+      //   console.log('onSubmit', data);
+      this.$store
+        .dispatch(actionTypes.createArticle, {articleInput})
+        .then((article) => {
+          this.$router.push({name: 'article', params: {slug: article.slug}});
+        });
     },
   },
 };

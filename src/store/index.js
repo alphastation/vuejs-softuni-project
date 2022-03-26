@@ -5,7 +5,7 @@ import auth from '@/store/modules/auth'
 import feed from '@/store/modules/feed'
 import popularTags from '@/store/modules/popularTags'
 import article from '@/store/modules/article'
-
+import createArticle from '@/store/modules/createArticle'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,7 +22,8 @@ export default new Vuex.Store({
     auth,
     feed,
     popularTags,
-    article
+    article,
+    createArticle
 
   }
 })
