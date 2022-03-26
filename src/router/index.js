@@ -7,7 +7,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import CreateArticleView from '@/views/CreateArticleView.vue'
-
+import EditArticleView from '@/views/EditArticleView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/articles/:slug/edit',
     name: 'editArticle',
-    component: GlobalFeedView
+    component: EditArticleView
   },
   {
     path: '/settings',

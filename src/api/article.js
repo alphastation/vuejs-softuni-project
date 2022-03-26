@@ -11,6 +11,11 @@ const createArticle = articleInput => {
     )
 
 }
+const updateArticle = (slug, articleInput) => {
+    return axios.put(`/articles/${slug}`, { article: articleInput }).then((response => response.data.article))
+
+
+}
 const deleteArticle = slug => {
     return axios.delete(`/articles/${slug}`)
 }
@@ -22,6 +27,7 @@ export default {
 
     getArticle,
     createArticle,
+    updateArticle,
     deleteArticle,
 
 
