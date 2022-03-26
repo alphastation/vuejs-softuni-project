@@ -5,7 +5,9 @@ import GlobalFeedView from '@/views/GlobalFeedView'
 import YourFeedView from '@/views/YourFeedView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
-import Article from '@/views/ArticleView.vue'
+import ArticleView from '@/views/ArticleView.vue'
+import CreateArticleView from '@/views/CreateArticleView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -38,12 +40,12 @@ const routes = [
   {
     path: '/articles/new',
     name: 'createArticle',
-    component: GlobalFeedView
+    component: CreateArticleView
   },
   {
     path: '/articles/:slug',
     name: 'article',
-    component: Article
+    component: ArticleView
   },
   {
     path: '/articles/:slug/edit',
